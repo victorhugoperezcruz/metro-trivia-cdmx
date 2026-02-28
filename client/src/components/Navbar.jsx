@@ -1,8 +1,16 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 import './Navbar.css'
 
 function Navbar() {
     const location = useLocation()
+    const navigate = useNavigate()
+    const { user, logout } = useAuth()
+
+    const handleLogout = () => {
+        logout()
+        navigate('/')
+    }
 
     return (
         <nav className="navbar">
@@ -39,6 +47,38 @@ function Navbar() {
                     >
                         Mapa
                     </Link>
+                    <Link
+                        to="/leaderboard"
+                        className={`navbar-link ${location.pathname === '/leaderboard' ? 'active' : ''}`}
+                    >
+                        🏆 Ranking
+                    </Link>
+                </div>
+
+                <div className="navbar-auth">
+                    {user ? (
+                        <div className="navbar-user">
+                            <Link to="/profile" className="navbar-username">
+                                👤 {user.username}
+                            </Link>
+                            <span className="navbar-highscore">⭐ {user.highScore}</span>
+                            <button className="navbar-logout-btn" onClick={handleLogout}>
+                                Salir
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="navbar-auth-links">
+                            <Link
+                                to="/login"
+                                className={`navbar-link ${location.pathname === '/login' ? 'active' : ''}`}
+                            >
+                                Iniciar sesión
+                            </Link>
+                            <Link to="/register" className="navbar-register-btn">
+                                Registro
+                            </Link>
+                        </div>
+                    )}
                 </div>
             </div>
         </nav>

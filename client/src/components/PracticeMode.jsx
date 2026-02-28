@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './PracticeMode.css';
 
 function PracticeMode({ allStations }) {
     const [currentQuestion, setCurrentQuestion] = useState(null);

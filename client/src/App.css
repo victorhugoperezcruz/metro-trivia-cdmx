@@ -1498,3 +1498,92 @@
         padding: 1.5rem 1rem;
     }
 }
+
+/* ==================== EXPLORE MODE — Station grid ==================== */
+.stations-grid-explore {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.6rem;
+}
+
+.station-card-explore {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 0.75rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    transition: all 0.2s ease;
+}
+
+.station-card-explore.learned {
+    background: #E8F5E9;
+    border-color: #A5D6A7;
+}
+
+.station-index {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--corp-primary);
+    min-width: 22px;
+    height: 22px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.station-name-explore {
+    flex: 1;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.3;
+}
+
+.station-learn-btn {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1.5px solid #bbb;
+    background: white;
+    color: #777;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.18s ease;
+    flex-shrink: 0;
+    line-height: 1;
+    padding: 0;
+}
+
+.station-learn-btn:hover {
+    background: var(--corp-primary);
+    border-color: var(--corp-primary);
+    color: white;
+    transform: scale(1.15);
+}
+
+.station-learn-btn.learned {
+    background: #4CAF50;
+    border-color: #4CAF50;
+    color: white;
+}
+
+.station-learn-btn.learned:hover {
+    background: #E53935;
+    border-color: #E53935;
+}
+
+.learned-badge {
+    color: #4CAF50;
+    font-weight: 800;
+    font-size: 0.9rem;
+}

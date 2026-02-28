@@ -1,0 +1,340 @@
+/* Leaderboard.css */
+
+.leaderboard-page {
+    min-height: 100vh;
+    background: linear-gradient(160deg, #0a0a1a 0%, #0d1b3e 60%, #0a0a1a 100%);
+    padding: 2rem 1rem;
+    color: #fff;
+}
+
+.lb-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    min-height: 60vh;
+    color: #8090c0;
+}
+
+.lb-spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-top-color: #5599ee;
+    border-radius: 50%;
+    animation: lbSpin 0.8s linear infinite;
+}
+
+@keyframes lbSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.lb-header {
+    max-width: 900px;
+    margin: 0 auto 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    text-align: center;
+}
+
+.lb-back {
+    align-self: flex-start;
+    color: #5599ee;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.lb-back:hover {
+    color: #77bbff;
+}
+
+.lb-title {
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    font-weight: 900;
+    margin: 0;
+    background: linear-gradient(90deg, #FFD700, #FFA500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.lb-subtitle {
+    color: #7080a0;
+    margin: 0;
+    font-size: 1rem;
+}
+
+.lb-error {
+    max-width: 600px;
+    margin: 0 auto;
+    background: rgba(220, 53, 69, 0.15);
+    border: 1px solid rgba(220, 53, 69, 0.3);
+    color: #ff7080;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    text-align: center;
+}
+
+.lb-empty {
+    text-align: center;
+    padding: 4rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    color: #7080a0;
+}
+
+.lb-empty-icon {
+    font-size: 4rem;
+}
+
+.lb-play-btn {
+    padding: 0.75rem 2rem;
+    background: linear-gradient(135deg, #0066CC, #004fa3);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 700;
+    transition: all 0.2s;
+}
+
+.lb-play-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 102, 204, 0.4);
+}
+
+.lb-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Podium */
+.lb-podium {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    padding: 0 1rem;
+}
+
+.lb-podium-slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    animation: lbFadeUp 0.6s ease both;
+}
+
+.lb-podium-slot--1 {
+    animation-delay: 0.1s;
+}
+
+.lb-podium-slot--2 {
+    animation-delay: 0.2s;
+}
+
+.lb-podium-slot--3 {
+    animation-delay: 0.3s;
+}
+
+@keyframes lbFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.lb-podium-medal {
+    font-size: 2rem;
+}
+
+.lb-podium-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #1a2a4a, #2a3a6a);
+    border: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.lb-podium-slot--1 .lb-podium-avatar {
+    width: 80px;
+    height: 80px;
+    font-size: 2rem;
+    border-color: #FFD700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+.lb-podium-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #dde;
+    text-align: center;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lb-podium-score {
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: #FFD700;
+}
+
+.lb-podium-badges {
+    font-size: 0.8rem;
+    letter-spacing: -2px;
+}
+
+.lb-podium-base {
+    background: linear-gradient(160deg, #1a2a4a, #0a1020);
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.5);
+    width: 100px;
+}
+
+.lb-podium-base--1 {
+    height: 80px;
+    background: linear-gradient(160deg, #2a3a5a, #1a2a4a);
+}
+
+.lb-podium-base--2 {
+    height: 60px;
+}
+
+.lb-podium-base--3 {
+    height: 44px;
+}
+
+/* Table */
+.lb-table-wrapper {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.lb-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.lb-table thead {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.lb-table th {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #7080a0;
+    font-weight: 700;
+}
+
+.lb-row {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    transition: background 0.2s;
+}
+
+.lb-row:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.lb-row--top {
+    background: rgba(255, 215, 0, 0.04);
+}
+
+.lb-table td {
+    padding: 1rem 1.25rem;
+    vertical-align: middle;
+}
+
+.lb-rank {
+    font-size: 1.2rem;
+    text-align: center;
+    width: 60px;
+}
+
+.lb-rank-num {
+    font-weight: 700;
+    color: #7080a0;
+    font-size: 0.9rem;
+}
+
+.lb-player {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.lb-player-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0066CC, #E83F8D);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 0.9rem;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.lb-player-name {
+    font-weight: 600;
+    color: #dde;
+}
+
+.lb-score {
+    font-weight: 900;
+    color: #FFD700;
+    font-size: 1.1rem;
+}
+
+.lb-badge-count {
+    font-size: 0.85rem;
+    color: #9090b0;
+}
+
+@media (max-width: 600px) {
+    .lb-podium-base {
+        width: 72px;
+    }
+
+    .lb-podium-name {
+        max-width: 72px;
+        font-size: 0.8rem;
+    }
+
+    .lb-table th:last-child,
+    .lb-table td:last-child {
+        display: none;
+    }
+}

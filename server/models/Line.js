@@ -5,16 +5,16 @@ const StationSchema = new mongoose.Schema({
     meaning: { type: String, default: "Información pendiente..." }, // Ej: "Lugar entre banderas"
     year: { type: String, default: "?" },
 
-}, { _id : false});
+}, { _id: false });
 
 const LineSchema = new mongoose.Schema({
     name: {
         type: String,
-        requiered: true
+        required: true
     },
     color: {
         type: String,
-        requiered: true
+        required: true
     },
     stations: [StationSchema],
 });

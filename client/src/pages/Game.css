@@ -1,0 +1,126 @@
+/* Game.css — estilos adicionales para las nuevas funcionalidades de Fase 3 */
+
+/* --- Toast de Logro --- */
+.achievement-toast {
+    position: fixed;
+    top: 80px;
+    right: 1.5rem;
+    z-index: 9999;
+    background: linear-gradient(135deg, #1a2a4a, #0d1b3e);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    border-radius: 16px;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 215, 0, 0.15);
+    animation: toastSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both,
+        toastFadeOut 0.4s ease 3.1s both;
+    max-width: 300px;
+}
+
+@keyframes toastSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(120%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes toastFadeOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(60%);
+    }
+}
+
+.achievement-toast-icon {
+    font-size: 2rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.achievement-toast-title {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #FFD700;
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+}
+
+.achievement-toast-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+/* --- Visual Question --- */
+.visual-question-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.visual-question-badge {
+    background: linear-gradient(135deg, #E83F8D22, #E83F8D44);
+    border: 1px solid #E83F8D66;
+    color: #E83F8D;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+}
+
+.station-logo-img {
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.2));
+    animation: logoAppear 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border-radius: 8px;
+}
+
+@keyframes logoAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.6);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* --- Login hint --- */
+.game-login-hint {
+    text-align: center;
+    color: #9090b0;
+    font-size: 0.875rem;
+    margin-top: 1.5rem;
+}
+
+.game-login-hint a {
+    color: #5599ee;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.game-login-hint a:hover {
+    color: #77bbff;
+    text-decoration: underline;
+}

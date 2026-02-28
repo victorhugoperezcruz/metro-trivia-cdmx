@@ -59,6 +59,7 @@
 }
 
 .navbar-links {
+    margin-top: 20px;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -119,4 +120,96 @@
     .navbar-logo-text {
         font-size: 1.25rem;
     }
+
+    .navbar-auth {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Auth section */
+.navbar-auth {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-user {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.navbar-username {
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    padding: 0.3rem 0.65rem;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    transition: all 0.22s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.navbar-username:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+    text-decoration: none;
+}
+
+.navbar-highscore {
+    background: rgba(255, 215, 0, 0.2);
+    color: #FFD700;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.navbar-logout-btn {
+    padding: 0.4rem 1rem;
+    background: rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.navbar-logout-btn:hover {
+    background: rgba(220, 53, 69, 0.3);
+    border-color: rgba(220, 53, 69, 0.5);
+    color: #ff8090;
+}
+
+.navbar-auth-links {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.navbar-register-btn {
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #E83F8D, #c0326e);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.navbar-register-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(232, 63, 141, 0.5);
 }

@@ -1,0 +1,214 @@
+/* PracticeMode.css — Layout limpio, sin overflow */
+
+.practice-mode {
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* Stats bar */
+.practice-stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+}
+
+.practice-stat {
+    background: white;
+    border: 1px solid var(--border-light, #e0e0e0);
+    border-radius: 12px;
+    padding: 0.875rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.stat-icon {
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #0066CC;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #7080a0;
+    font-weight: 700;
+}
+
+/* Question card */
+.practice-question-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    border: 1px solid var(--border-light, #e0e0e0);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.practice-question-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1a2a4a;
+    margin: 0;
+    text-align: center;
+}
+
+.practice-question-number {
+    font-size: 0.8rem;
+    color: #7080a0;
+    font-weight: 600;
+    background: #f0f4f8;
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+}
+
+/* Logo */
+.practice-logo-display {
+    width: 140px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+}
+
+.practice-logo-img {
+    max-width: 120px;
+    max-height: 120px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Options grid — 2x2 siempre */
+.practice-options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    width: 100%;
+}
+
+.practice-option-btn {
+    padding: 0.875rem 1rem;
+    background: white;
+    border: 2px solid #dde;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1a2a4a;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    text-align: center;
+    line-height: 1.3;
+    word-break: break-word;
+}
+
+.practice-option-btn:hover:not(:disabled) {
+    background: #EBF3FF;
+    border-color: #0066CC;
+    color: #0066CC;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2);
+}
+
+.practice-option-btn.correct {
+    background: #E8F5E9;
+    border-color: #4CAF50;
+    color: #2E7D32;
+    font-weight: 800;
+}
+
+.practice-option-btn.incorrect {
+    background: #FFEBEE;
+    border-color: #EF5350;
+    color: #C62828;
+}
+
+.practice-option-btn.disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+/* Feedback */
+.practice-feedback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.875rem 1.25rem;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    animation: practiceSlideIn 0.3s ease;
+}
+
+@keyframes practiceSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.practice-feedback.correct {
+    background: #E8F5E9;
+    border: 1px solid #4CAF50;
+    color: #2E7D32;
+}
+
+.practice-feedback.incorrect {
+    background: #FFEBEE;
+    border: 1px solid #EF5350;
+    color: #C62828;
+}
+
+.feedback-icon {
+    font-size: 1.3rem;
+}
+
+.practice-loading {
+    text-align: center;
+    padding: 3rem;
+    color: #7080a0;
+    font-size: 1rem;
+}
+
+@media (max-width: 480px) {
+    .practice-stats-bar {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .practice-options-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .practice-question-card {
+        padding: 1.5rem 1rem;
+    }
+}
