@@ -64,7 +64,9 @@ function StudyMode() {
                 setAllStations(stations)
 
                 const saved = localStorage.getItem('metroLearnedStations')
-                if (saved) setLearnedStations(JSON.parse(saved))
+                if (saved) {
+                    localStorage.setItem('metroLearnedStations', saved)
+                }
             } catch (error) {
                 console.error('Error:', error)
             }

@@ -48,7 +48,10 @@ function Game() {
         setLoading(false)
         generateQuestion(res.data)
       })
-      .catch(err => console.error(err))
+      .catch(err => {
+        console.error(err)
+        setLoading(false)
+      })
   }, [])
 
   // ---- Lógica de logros ----
