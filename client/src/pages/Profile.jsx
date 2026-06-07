@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import axios from 'axios'
 import { useAuth } from '../context/AuthContext'
+import { api } from '../utils/api'
 import './Profile.css'
 
 // --- Sistema de rangos ---
@@ -51,7 +51,7 @@ function Profile() {
     const fetchProfile = async () => {
         setLoading(true)
         try {
-            const res = await axios.get('http://localhost:3000/api/users/profile', {
+            const res = await api.get('/api/users/profile', {
                 headers: { Authorization: `Bearer ${token}` },
             })
             setProfile(res.data)
@@ -72,8 +72,8 @@ function Profile() {
         setSaving(true)
         setSaveMsg('')
         try {
-            await axios.put(
-                'http://localhost:3000/api/users/profile',
+            await api.put(
+                '/api/users/profile',
                 { username: form.username, favoriteLine: form.favoriteLine, avatarColor: form.avatarColor },
                 { headers: { Authorization: `Bearer ${token}` } }
             )

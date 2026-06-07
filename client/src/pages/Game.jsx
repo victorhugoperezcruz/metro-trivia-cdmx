@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
-import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { api } from '../utils/api'
 import { getStationLogoUrl } from '../utils/stationLogo'
 import './Game.css'
 
@@ -42,7 +42,7 @@ function Game() {
   }, [user])
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/lines')
+    api.get('/api/lines')
       .then(res => {
         setLines(res.data)
         setLoading(false)
@@ -74,8 +74,8 @@ function Game() {
 
     // Guardar en servidor si está autenticado
     if (user && token) {
-      axios.post(
-        'http://localhost:3000/api/users/achievements',
+      api.post(
+        '/api/users/achievements',
         { id: def.id, name: def.name, description: def.description },
         { headers: { Authorization: `Bearer ${token}` } }
       ).catch(() => { })

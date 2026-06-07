@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { api } from '../utils/api'
 import StationInfo from './StationInfo'; // Asegúrate de que StationInfo también sea .jsx
 
 const MetroMap = () => {
@@ -8,7 +8,7 @@ const MetroMap = () => {
 
   // Cargar datos de la BD al iniciar
   useEffect(() => {
-    axios.get('http://localhost:3000/api/lines')
+    api.get('/api/lines')
       .then(res => setLinesData(res.data))
       .catch(err => console.error("Error cargando líneas:", err));
   }, []);

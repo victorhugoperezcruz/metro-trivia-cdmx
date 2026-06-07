@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import { Link } from 'react-router-dom'
+import { api } from '../utils/api'
 import './Leaderboard.css'
 
 const MEDALS = ['🥇', '🥈', '🥉']
@@ -11,7 +11,7 @@ function Leaderboard() {
     const [error, setError] = useState('')
 
     useEffect(() => {
-        axios.get('http://localhost:3000/api/users/leaderboard')
+        api.get('/api/users/leaderboard')
             .then(res => {
                 setPlayers(res.data)
                 setLoading(false)

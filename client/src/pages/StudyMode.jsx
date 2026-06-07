@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react'
-import axios from 'axios'
 import { Link } from 'react-router-dom'
 import FlashCard from '../components/FlashCard'
 import PracticeMode from '../components/PracticeMode'
 import { useAuth } from '../context/AuthContext'
+import { api } from '../utils/api'
 
 function StudyMode() {
     const { user, token, learnProgress, refreshUser } = useAuth()
@@ -17,22 +17,12 @@ function StudyMode() {
 
     // Flashcards state
     const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0)
-    const [learnedStations, setLearnedStations] = useState([])  // array de stationNames
     const [shuffleMode, setShuffleMode] = useState(false)
     const [showOnlyUnlearned, setShowOnlyUnlearned] = useState(false)
 
-    // Gate: sincroniza desde servidor solo una vez por sesión
-    const syncedFromServer = useRef(false)
-
-    // Cuando el usuario está logueado y las estaciones ya cargaron,
-    // reemplaza el estado local con los datos de la BD (fuente de verdad).
-    useEffect(() => {
-        if (syncedFromServer.current || !user?.learnedStations || allStations.length === 0) return
-        syncedFromServer.current = true
-        const fromServer = user.learnedStations.map(s => s.stationName)
-        setLearnedStations(fromServer)
-        localStorage.setItem('metroLearnedStations', JSON.stringify(fromServer))
-    }, [user, allStations])
+    // Extrae names de las estaciones aprendidas (desde el servidor si está autenticado, sino desde localStorage)
+    const learnedStations = user?.learnedStations?.map(s => s.stationName) || 
+                            JSON.parse(localStorage.getItem('metroLearnedStations') || '[]')
 
     const extractCleanId = (lineName) => {
         if (!lineName) return '?'
@@ -42,7 +32,7 @@ function StudyMode() {
     useEffect(() => {
         const fetchLines = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/lines')
+                const response = await api.get('/api/lines')
                 const rawData = Array.isArray(response.data) ? response.data : []
 
                 const processedLines = rawData.map(line => {
@@ -82,10 +72,6 @@ function StudyMode() {
         fetchLines()
     }, [])
 
-    useEffect(() => {
-        localStorage.setItem('metroLearnedStations', JSON.stringify(learnedStations))
-    }, [learnedStations])
-
     const toggleLine = (lineId) => {
         setExpandedLine(expandedLine === lineId ? null : lineId)
     }
@@ -93,18 +79,20 @@ function StudyMode() {
     /**
      * Marca/desmarca una estación como aprendida.
      * Si el usuario está autenticado, persiste en el servidor.
-     * Se requiere lineName para la API.
      */
     const toggleLearned = async (stationName, lineName) => {
         const isAlreadyLearned = learnedStations.includes(stationName)
-        setLearnedStations(prev =>
-            isAlreadyLearned
-                ? prev.filter(s => s !== stationName)
-                : [...prev, stationName]
-        )
-        // Persistir en backend si está autenticado (solo al marcar, no al desmarcar)
+        
         if (!isAlreadyLearned && user && lineName) {
+            // Si está autenticado, guardar en servidor
             await learnProgress(lineName, stationName)
+        } else if (!user) {
+            // Si NO está autenticado, guardar en localStorage
+            const updated = isAlreadyLearned
+                ? learnedStations.filter(s => s !== stationName)
+                : [...learnedStations, stationName]
+            localStorage.setItem('metroLearnedStations', JSON.stringify(updated))
+            window.location.reload() // Recargar para actualizar
         }
     }
 
@@ -156,15 +144,13 @@ function StudyMode() {
         )
         if (!confirmed) return
 
-        // Limpiar estado y localStorage
-        setLearnedStations([])
+        // Limpiar localStorage
         localStorage.removeItem('metroLearnedStations')
-        syncedFromServer.current = false  // permitir re-sync si recargamos
 
         // Limpiar en la BD si el usuario está autenticado
         if (user && token) {
             try {
-                await axios.delete('http://localhost:3000/api/users/progress', {
+                await api.delete('/api/users/progress', {
                     headers: { Authorization: `Bearer ${token}` },
                 })
                 await refreshUser()  // actualiza AuthContext.user.learnedStations = []

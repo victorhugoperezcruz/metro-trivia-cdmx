@@ -3,6 +3,6 @@ const router = express.Router();
 const { seedDatabase, getAllLines } = require('../controllers/lineController');
 
 router.get('/seed', seedDatabase);
-router.get('/lines', getAllLines);
+router.get('/', getAllLines);
 
 module.exports = router;

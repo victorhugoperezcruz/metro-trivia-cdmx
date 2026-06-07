@@ -28,7 +28,14 @@ const register = async (req, res) => {
 
         res.status(201).json({
             token,
-            user: { id: user._id, username: user.username, email: user.email, highScore: user.highScore },
+            user: { 
+                id: user._id, 
+                username: user.username, 
+                email: user.email, 
+                highScore: user.highScore,
+                learnedStations: user.learnedStations || [],
+                achievements: user.achievements || [],
+            },
         });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -58,7 +65,14 @@ const login = async (req, res) => {
 
         res.json({
             token,
-            user: { id: user._id, username: user.username, email: user.email, highScore: user.highScore },
+            user: { 
+                id: user._id, 
+                username: user.username, 
+                email: user.email, 
+                highScore: user.highScore,
+                learnedStations: user.learnedStations || [],
+                achievements: user.achievements || [],
+            },
         });
     } catch (error) {
         res.status(500).json({ error: error.message });

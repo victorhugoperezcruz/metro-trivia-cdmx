@@ -50,13 +50,18 @@ const unlockAchievement = async (req, res) => {
 // ============================================================
 const patchProgress = async (req, res) => {
     try {
+        console.log('📚 PATCH /progress recibido:', { userId: req.user?.id, body: req.body });
         const { lineName, stationName } = req.body;
         if (!lineName || !stationName) {
+            console.log('❌ Faltan parámetros:', { lineName, stationName });
             return res.status(400).json({ error: 'lineName y stationName son obligatorios.' });
         }
 
         const user = await User.findById(req.user.id);
-        if (!user) return res.status(404).json({ error: 'Usuario no encontrado.' });
+        if (!user) {
+            console.log('❌ Usuario no encontrado:', req.user.id);
+            return res.status(404).json({ error: 'Usuario no encontrado.' });
+        }
 
         // Verificar duplicado
         const alreadyLearned = user.learnedStations.some(
@@ -70,9 +75,12 @@ const patchProgress = async (req, res) => {
         user.learnedStations.push({ lineName, stationName });
         await user.save();
 
+        console.log('✅ Estación guardada:', { lineName, stationName, userId: req.user.id, totalEstaciones: user.learnedStations.length });
+
         res.status(201).json({
             newStation: { lineName, stationName },
             total: user.learnedStations.length,
+            learnedStations: user.learnedStations,
         });
     } catch (error) {
         res.status(500).json({ error: error.message });

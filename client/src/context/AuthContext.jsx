@@ -1,8 +1,8 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import axios from 'axios'
+import { api } from '../utils/api'
 
-const AUTH_URL = 'http://localhost:3000/api/auth'
-const USERS_URL = 'http://localhost:3000/api/users'
+const AUTH_URL = '/api/auth'
+const USERS_URL = '/api/users'
 
 const AuthContext = createContext(null)
 
@@ -19,7 +19,7 @@ export function AuthProvider({ children }) {
         const verifySession = async () => {
             if (!token) { setLoading(false); return }
             try {
-                const res = await axios.get(`${AUTH_URL}/me`, { headers: authHeader() })
+                const res = await api.get(`${AUTH_URL}/me`, { headers: authHeader() })
                 setUser(res.data)
             } catch {
                 localStorage.removeItem('metro_token')
@@ -33,7 +33,7 @@ export function AuthProvider({ children }) {
     }, [token])
 
     const register = async (username, email, password) => {
-        const res = await axios.post(`${AUTH_URL}/register`, { username, email, password })
+        const res = await api.post(`${AUTH_URL}/register`, { username, email, password })
         localStorage.setItem('metro_token', res.data.token)
         setToken(res.data.token)
         setUser(res.data.user)
@@ -41,7 +41,7 @@ export function AuthProvider({ children }) {
     }
 
     const login = async (email, password) => {
-        const res = await axios.post(`${AUTH_URL}/login`, { email, password })
+        const res = await api.post(`${AUTH_URL}/login`, { email, password })
         localStorage.setItem('metro_token', res.data.token)
         setToken(res.data.token)
         setUser(res.data.user)
@@ -57,7 +57,7 @@ export function AuthProvider({ children }) {
     const updateHighScore = async (score) => {
         if (!token) return
         try {
-            const res = await axios.put(
+            const res = await api.put(
                 `${AUTH_URL}/highscore`,
                 { score },
                 { headers: authHeader() }
@@ -77,19 +77,16 @@ export function AuthProvider({ children }) {
     const learnProgress = async (lineName, stationName) => {
         if (!token) return null
         try {
-            const res = await axios.patch(
+            const res = await api.patch(
                 `${USERS_URL}/progress`,
                 { lineName, stationName },
                 { headers: authHeader() }
             )
-            // Actualizar learnedStations en el estado local sin re-fetch
-            if (!res.data.alreadyLearned) {
+            // Actualizar learnedStations del usuario (desde la respuesta del servidor)
+            if (res.data.learnedStations) {
                 setUser(prev => ({
                     ...prev,
-                    learnedStations: [
-                        ...(prev.learnedStations || []),
-                        { lineName, stationName },
-                    ],
+                    learnedStations: res.data.learnedStations,
                 }))
             }
             return res.data
@@ -105,7 +102,7 @@ export function AuthProvider({ children }) {
     const refreshUser = async () => {
         if (!token) return
         try {
-            const res = await axios.get(`${AUTH_URL}/me`, { headers: authHeader() })
+            const res = await api.get(`${AUTH_URL}/me`, { headers: authHeader() })
             setUser(res.data)
         } catch {
             logout()
